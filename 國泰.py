@@ -9,15 +9,39 @@ url = requests.get(
 url.encoding = "utf-8"
 x = BeautifulSoup(url.text, "html.parser")
 
-#找出第一頁的卡片名稱
-a1 = x.find_all("tbody")
-
-a2 = a1[0].find_all("tr")
-
-#透過迴圈把"h3"裡的卡片名稱取出來
+#找出卡片名稱
 times = 0
-for i in a2:
-    a3 = a2[times].find("h3").text
-    times += 1
+title = x.find_all("div",{
+		"class" : "card-name"
+	})
+for i in title:
+	titleTEXT = title[times].find("h3").text
+	times += 1
 
-    print(a3)
+#找出卡片特色 && 年費
+times = 0
+features = x.find_all("div",{
+		"class" : "card-features"
+	})
+pay = x.find_all("ul",{
+		"class" : "bullet-normal"
+	})
+# print(pay)
+for j in features:
+	##特色部分
+	featuresTEXT = features[times].find("ul",{
+			"class" : "bullet gray-medium"
+		})
+	featuresTEXT = str(featuresTEXT).replace("<li>", "")
+	featuresTEXT = str(featuresTEXT).replace("</li>", "")
+	featuresTEXT = str(featuresTEXT).replace("<ul class=\"bullet gray-medium\">", "")
+	featuresTEXT = str(featuresTEXT).replace("</ul>", "")
+	featuresTEXT = str(featuresTEXT).replace(" ", "")
+	featuresTEXT = str(featuresTEXT).replace("\n", "")
+	featuresTEXT = str(featuresTEXT).replace("None", "")
+	times += 1
+	print(featuresTEXT)
+	##年費部分
+	# payTEXT = pay[times].text
+	# times += 1
+	# print(payTEXT)
