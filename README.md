@@ -12,4 +12,5 @@
   1. 開啟Line Developer
   2. 開啟ngrok
   3. 修改網址
-  4. 開啟菊如伺服器
+  4. 執行jupyter notebook
+  5. 開啟菊如伺服器
