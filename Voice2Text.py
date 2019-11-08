@@ -58,3 +58,8 @@ def voice_to_txt(wavPath):
 
 # aacPath = "audios10848253987926.wav"
 # voice_to_txt(aacPath)
+
+
+
+
+#"last update:2019/11/8"

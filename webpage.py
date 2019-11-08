@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import csv
 import sys
+from test_functionVer import *
 
 #接收分析後的兩個值得字串:[id, question]*3,透過ID去CSV找Answer
 
@@ -41,11 +42,7 @@ def main():
 	for i in idd:
 		answers.append(ans(i))
 
-	# print(questions)
-	# print(answers)
-	# print(len(questions))
-	# print(len(answers))
-	# print(LTS(sys.argv[1:7]))
+
 
 	df = pd.DataFrame({
 	    '可能的問題                 ': questions, 
@@ -54,17 +51,19 @@ def main():
 	df
 
 	if st.button('send A1'):
-		st.write('send A2')
+		PushMessage(answers[0])
+		st.write(answers[0])
 
 	if st.button('send A2'):
-		st.write('send A2')
+		PushMessage(answers[1])
+		st.write(answers[1])
 
 	if st.button('send A3'):
-		st.write('send A3')
+		PushMessage(answers[2])
+		st.write(answers[2])
 
 if __name__ == "__main__":
-    main()
+	main()
 
 
-
-
+#"last update:2019/11/8"

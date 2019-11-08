@@ -134,3 +134,6 @@ def find_similiar_questions(qry, qa_collections):
 
 # print(test)
 
+
+#"last update:2019/11/8"
+
