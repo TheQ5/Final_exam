@@ -7,6 +7,7 @@
   4. audio資料夾
   5. user資料夾
   6. 下載阿寶模型
+  7. 下載菊如模型
 
 ## 建置步驟
   1. 開啟Line Developer
