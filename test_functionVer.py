@@ -94,8 +94,8 @@ def reply_text_and_get_user_profile(event):
 # In[12]:
 
 
-user_ID = ""
-def PushMessage(context):
+
+def PushMessage(context, user_ID):
     #推播消息
     from linebot import LineBotApi
     from linebot.models import TextSendMessage
@@ -105,10 +105,10 @@ def PushMessage(context):
 
     line_bot_api = LineBotApi(token)
 
-    try:
-        line_bot_api.push_message(user_ID, TextSendMessage(text=context))
-    except LineBotApiError as e:
-        print("error handle")
+    # try:
+    line_bot_api.push_message(user_ID, TextSendMessage(text=context))
+    # except LineBotApiError as e:
+    #     print("error handle")
 
 
 # In[13]:

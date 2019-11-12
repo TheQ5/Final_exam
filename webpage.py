@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import csv
 import sys
-from test_functionVer import *
+from test_functionVer import PushMessage
 
 #接收分析後的兩個值得字串:[id, question]*3,透過ID去CSV找Answer
 
@@ -31,6 +31,9 @@ def main():
 	content = LTS(sys.argv[1:7])
 	content = content.replace('[',"").replace("]","").replace(" ","")
 	content = content.split(",")
+	user_ID = LTS(sys.argv[7])
+	user_ID = user_ID.replace('[',"").replace("]","").replace(" ","").replace("\'","")
+
 	idd = []
 	questions = []
 	answers = []
@@ -51,15 +54,21 @@ def main():
 	df
 
 	if st.button('send A1'):
-		PushMessage(answers[0])
+		PushMessage(answers[0], user_ID)
 		st.write(answers[0])
-
+		# st.write(user_ID)
+		# st.write(bool(user_ID == 'Ubbe1a0ecaf2b210fd618c919d1d19870'))
+		# st.write(bool('Ubbe1a0ecaf2b210fd618c919d1d19870' == 'Ubbe1a0ecaf2b210fd618c919d1d19870'))
+		# st.write(len(user_ID))
+		# st.write(len('Ubbe1a0ecaf2b210fd618c919d1d19870'))
+		# st.write(type(user_ID))
+		# st.write(type('Ubbe1a0ecaf2b210fd618c919d1d19870'))
 	if st.button('send A2'):
-		PushMessage(answers[1])
+		PushMessage(answers[1], user_ID)
 		st.write(answers[1])
 
 	if st.button('send A3'):
-		PushMessage(answers[2])
+		PushMessage(answers[2], user_ID)
 		st.write(answers[2])
 
 if __name__ == "__main__":
