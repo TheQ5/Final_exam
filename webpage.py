@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import csv
 import sys
-from test_functionVer import PushMessage
+from test_functionVer import *
 
 #接收分析後的兩個值得字串:[id, question]*3,透過ID去CSV找Answer
 
@@ -28,48 +28,39 @@ def ans(id):
 def main():
 	st.title('課服語音輔助系統')
 	st.write("Here's the input from the customers and the most possible solution from the database:")
-	content = LTS(sys.argv[1:7])
-	content = content.replace('[',"").replace("]","").replace(" ","")
+	
+	#將傳進來的資料作處理
+	content = LTS(sys.argv[1:7])#list to string
+	content = content.replace('[',"").replace("]","").replace(" ","")#去除多餘符號
 	content = content.split(",")
 	user_ID = LTS(sys.argv[7])
 	user_ID = user_ID.replace('[',"").replace("]","").replace(" ","").replace("\'","")
-
 	idd = []
 	questions = []
 	answers = []
-	for I in content[0:3]:
-		# I, Q = sys.argv[1],sys.argv[] 
+	for I in content[0:3]:#取ID
 		idd.append(I)
-	for Q in content[3:6]:
+	for Q in content[3:6]:#取Q
 		questions.append(Q)
-	for i in idd:
+	for i in idd:#取答案
 		answers.append(ans(i))
 
+	#實際資料顯示
+	group = ["一", "二", "三"]
+	number = 0
+	answer_number = 1
+	for i in group:
+		st.success("第%s組Q&A"%i)
+		st.write("問題:", questions[number])
 
+		st.write("回答:", answers[number])
+	
+		if st.button('將第 %s 個答案推送給客戶'%answer_number):
+			PushMessage(answers[number], user_ID)
+			st.write("已將答案%s傳送給用戶"%answer_number)
+		number += 1
+		answer_number += 1
 
-	df = pd.DataFrame({
-	    '可能的問題                 ': questions, 
-	    '可能的答案                 ': answers  ###用[]取答案
-	})
-	df
-
-	if st.button('send A1'):
-		PushMessage(answers[0], user_ID)
-		st.write(answers[0])
-		# st.write(user_ID)
-		# st.write(bool(user_ID == 'Ubbe1a0ecaf2b210fd618c919d1d19870'))
-		# st.write(bool('Ubbe1a0ecaf2b210fd618c919d1d19870' == 'Ubbe1a0ecaf2b210fd618c919d1d19870'))
-		# st.write(len(user_ID))
-		# st.write(len('Ubbe1a0ecaf2b210fd618c919d1d19870'))
-		# st.write(type(user_ID))
-		# st.write(type('Ubbe1a0ecaf2b210fd618c919d1d19870'))
-	if st.button('send A2'):
-		PushMessage(answers[1], user_ID)
-		st.write(answers[1])
-
-	if st.button('send A3'):
-		PushMessage(answers[2], user_ID)
-		st.write(answers[2])
 
 if __name__ == "__main__":
 	main()

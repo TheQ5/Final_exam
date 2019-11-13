@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
+# In[23]:
 
 
 # 引用Web Server套件
@@ -55,7 +55,7 @@ def callback():
     return 'OK'
 
 
-# In[11]:
+# In[24]:
 
 
 # 載入Follow事件
@@ -91,8 +91,7 @@ def reply_text_and_get_user_profile(event):
 #     )
 
 
-# In[12]:
-
+# In[25]:
 
 
 def PushMessage(context, user_ID):
@@ -105,13 +104,13 @@ def PushMessage(context, user_ID):
 
     line_bot_api = LineBotApi(token)
 
-    # try:
-    line_bot_api.push_message(user_ID, TextSendMessage(text=context))
-    # except LineBotApiError as e:
-    #     print("error handle")
+    try:
+        line_bot_api.push_message(user_ID, TextSendMessage(text=context))
+    except LineBotApiError as e:
+        print("error handle")
 
 
-# In[13]:
+# In[26]:
 
 
 from aip import AipSpeech
@@ -126,7 +125,7 @@ from find_similar_question import *
 from webpage import *
 
 
-# In[5]:
+# In[27]:
 
 
 @handler.add(MessageEvent, message=AudioMessage)
@@ -138,7 +137,7 @@ def handle_message(event):
     #接收資料,回傳一段訊息給用戶,並將資料取回本機
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='沒事亂傳訊息，害我又要加班'))
+        TextSendMessage(text='已收到您的服務需求，請稍後'))
     message_content = line_bot_api.get_message_content(event.message.id)
     with open('./audios/'+event.message.id+".aac", 'wb') as fd: ###LINE預設音檔是.aac
         for chunk in message_content.iter_content():
@@ -158,26 +157,28 @@ def handle_message(event):
     if sign==0 or sign==1:
         PredictQue = find_similiar_questions(text, "qa_collections.csv") ###要記得先開伺服器###
         print(PredictQue)
+        PredictQue = PredictQue + [[user_ID]]
+        print(PredictQue)
     #####接到客服頁面#####    
         os.system("Streamlit run webpage.py %s"%PredictQue)
         print("完成了")
     elif sign==2:
-        PushMessage(content)
+        PushMessage(content, user_ID)
     else:
-        PushMessage(content)
+        PushMessage(content, user_ID)
 
 
-# In[8]:
-
-
-user_ID = "Ubbe1a0ecaf2b210fd618c919d1d19870"
-
-
-# In[9]:
+# In[28]:
 
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
+
+
+# In[29]:
+
+
+
 
 
 # # TO DO LIST
