@@ -1,0 +1,1 @@
+bert-serving-start -cpu -max_batch_size 16 -model_dir="MODEL/pretrained/chinese_L-12_H-768_A-12" -tuned_model_dir="MODEL/1104_F1_57.2069" -ckpt_name="model.ckpt-15398"
